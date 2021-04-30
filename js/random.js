@@ -9,26 +9,32 @@ const getRandonInteger = (a = 0, b = 1) => {
     return Math.floor( LOWER + Math.random() * (UPPER - LOWER +1));
 };
 
+export const mocksMassive = [];
+
 
 const getComments = () => {
-    return {
-        id: getRandonInteger(1, 25),
-        avatar: 'img/avatar-'+ getRandonInteger(1, 6) + '.svg',
-        message: messages[getRandonInteger(0, messages.length - 1)],
-        name: names[getRandonInteger(0, names.length - 1)],
-    };
+    let commentCount = getRandonInteger(0,15);
+    let commentsMassive = [];
+    for (let i = 1; i <= commentCount; i++) {
+        let commentsObj = {
+            id: i,
+            avatar: 'img/avatar-'+ getRandonInteger(1, 6) + '.svg',
+            message: messages[getRandonInteger(0, messages.length - 1)],
+            name: names[getRandonInteger(0, names.length - 1)],
+        };
+        commentsMassive.push(commentsObj);
+    }
+    return commentsMassive;
 }
 
-const getRandomMock = () => {
-    return {
-        id: getRandonInteger(1, 25),
-        comments: new Array(getRandonInteger(1, 15)).fill('').map(getComments),
+for (let i = 0; i < 5; i++) {
+    let randomMassive = {
+        id: i,
+        comments: getComments(),
         url: 'photos/' + getRandonInteger(1, 25) + '.jpg',
         description: descriptions[getRandonInteger(0, 2)],
         likes: getRandonInteger(15, 200),
     }
-};
-
-const GENERATE = 26;
-
-export const mocksMassive = new Array(GENERATE).fill().map(getRandomMock);
+    mocksMassive.push(randomMassive);
+}
+console.log(mocksMassive);
